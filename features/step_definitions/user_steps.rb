@@ -30,7 +30,6 @@ end
 def sign_up
   delete_user
   visit '/users/sign_up'
-  fill_in "user_name", :with => @visitor[:name]
   fill_in "user_email", :with => @visitor[:email]
   fill_in "user_password", :with => @visitor[:password]
   fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
@@ -123,7 +122,7 @@ end
 
 When /^I edit my account details$/ do
   click_link "Edit account"
-  fill_in "user_name", :with => "newname"
+  fill_in "user_email", :with => "newname@newemail.com"
   fill_in "user_current_password", :with => @visitor[:password]
   click_button "Update"
 end
@@ -166,11 +165,11 @@ Then /^I should see a missing password message$/ do
 end
 
 Then /^I should see a missing password confirmation message$/ do
-  page.should have_content "Password doesn't match confirmation"
+  page.should have_content "Password confirmation doesn't match"
 end
 
 Then /^I should see a mismatched password message$/ do
-  page.should have_content "Password doesn't match confirmation"
+  page.should have_content "Password confirmation doesn't match"
 end
 
 Then /^I should see a signed out message$/ do
@@ -185,7 +184,7 @@ Then /^I should see an account edited message$/ do
   page.should have_content "You updated your account successfully."
 end
 
-Then /^I should see my name$/ do
+Then /^I should see my email/ do
   create_user
-  page.should have_content @user[:name]
+  page.should have_content @user[:email]
 end

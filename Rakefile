@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Tellmeitson::Application.load_tasks
+LoopdIn::Application.load_tasks

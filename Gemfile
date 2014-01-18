@@ -7,10 +7,11 @@ gem 'rails', '4.0.0'
 gem 'sqlite3', :group => [:development, :test]
 gem 'pg', :group => [:production]
 group :assets do
-  gem 'sass-rails',   '~> 4.0.0'
   gem 'coffee-rails', '~> 4.0.0'
   gem 'uglifier', '>= 1.0.3'
 end
+gem 'sass-rails',   '~> 4.0.0'
+gem "compass-rails"
 gem "twitter-bootstrap-rails"
 gem 'jquery-rails'
 gem "rspec-rails", ">= 2.12.2", :group => [:development, :test]

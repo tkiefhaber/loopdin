@@ -1,1 +1,23 @@
-i am the home page, i will eventually be awesome
+<% if user_signed_in? %>
+  <h1> Projects </h1>
+  <h4><%= link_to "Add Project", new_user_project_path(@user) %></h4>
+  <% @user.projects.each do |project| %>
+    <div class="col-sm-4">
+      <div class="box">
+        <div class="box-header">
+          <div class="title">
+            <%= link_to project.title, user_project_path(@user, project.id) %>
+          </div>
+          <div class="actions">
+            <!-- right aligned box actions -->
+          </div>
+        </div>
+        <div class="box-content">
+          <%= project.description %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <h1>i am the home page, i will eventually be awesome</h1>
+<% end %>

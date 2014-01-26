@@ -1,0 +1,28 @@
+<div id="wrapper">
+  <section id="content">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span2">
+        </div><!--/span-->
+        <div class="span10">
+          <h1> <%= @project.title %> </h1>
+          <h4><%= link_to "Add Version", new_user_project_version_path(@user, @project), :class => 'btn btn-primary btn-large icon-plus-sign' %></h4>
+          <div class='tabbable'>
+            <!-- responsive tabs definition -->
+            <ul class='nav nav-responsive nav-tabs'>
+
+              <!-- tab element -->
+              <%= @project.versions.each do |version| %>
+                <li>
+                  <a data-toggle='tab' href="##{version.id}">
+                    <%= version.title %>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div><!--/row-->
+    </div>
+  </section>
+</div>

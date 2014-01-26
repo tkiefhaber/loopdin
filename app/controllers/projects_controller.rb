@@ -1,10 +1,15 @@
 class ProjectsController < ApplicationController
+  before_filter :find_user
+
+  def index
+    @projects = @user.projects
+  end
+
   def show
     @project = Project.find(params[:id])
   end
 
   def new
-    @user = User.find(params[:user_id])
     @project = Project.new(user: @user)
   end
 
@@ -18,5 +23,10 @@ class ProjectsController < ApplicationController
       redirect_to back
     end
 
+  end
+
+  private
+  def find_user
+    @user = User.find(params[:user_id])
   end
 end

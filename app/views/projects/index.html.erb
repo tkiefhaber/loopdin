@@ -7,7 +7,7 @@
         <div class="span10">
           <h1> Projects </h1>
           <h4><%= link_to "Add Project", new_user_project_path(@user), :class => 'btn btn-primary btn-large icon-plus-sign' %></h4>
-          <% @user.projects.each do |project| %>
+          <% @projects.each do |project| %>
             <div class="col-sm-4">
               <div class="box">
                 <div class="box-header">

@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_filter :find_user
 
   def index
-    @projects = @user.projects
+    @projects = @user.projects.send(user_filter)
   end
 
   def show
@@ -26,7 +26,21 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def user_filter
+    case project_params[:filter]
+    when 'in_progress' then :in_progress
+    when 'collabos'    then :collabos
+    when 'approved'    then :approved
+    else :all
+    end
+  end
+
   def find_user
     @user = User.find(params[:user_id])
+  end
+
+  def project_params
+    params.permit(:filter)
   end
 end

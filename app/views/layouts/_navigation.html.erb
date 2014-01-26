@@ -1,6 +1,5 @@
 <header>
   <nav class="navbar navbar-default">
-
     <%= link_to image_tag("bigchicken.png", :height => 25, :width => 25, :alt => 'logo', :title => 'logo'), root_path, :class => 'navbar-brand logo' %>
     <!-- dropdowns -->
     <ul class="nav">
@@ -14,7 +13,7 @@
         </a>
         <ul class="dropdown-menu">
           <li>
-            <%= link_to "Edit #{@user.email}", edit_user_registration_path %>
+            <%= link_to "Edit #{@user.username}", edit_user_registration_path %>
           </li>
           <li>
             <%= link_to 'Logout', destroy_user_session_path, :method=>'get' %>
@@ -26,10 +25,10 @@
   <nav id="main-nav">
     <div class='navigation'>
       <ul class='nav nav-stacked'>
-        <li><%= link_to ' In Progress', root_path, class: 'icon-beaker nav-hideable' %></li>
-        <li><%= link_to ' Collabos', root_path, class: 'icon-group nav-hideable' %></li>
-        <li><%= link_to ' Approved', root_path, class: 'icon-check nav-hideable' %></li>
-        <li><%= link_to ' All', root_path, class: 'icon-suitcase nav-hideable' %></li>
+        <li><%= link_to ' In Progress', user_projects_path(@user, filter: 'in_progress'), class: 'icon-beaker nav-hideable' %></li>
+        <li><%= link_to ' Collabos', user_projects_path(@user, filter: 'collabos'), class: 'icon-group nav-hideable' %></li>
+        <li><%= link_to ' Approved', user_projects_path(@user, filter: 'approved'), class: 'icon-check nav-hideable' %></li>
+        <li><%= link_to ' All', user_projects_path(@user, filter: 'all'), class: 'icon-suitcase nav-hideable' %></li>
       </ul>
     </div>
   </nav>

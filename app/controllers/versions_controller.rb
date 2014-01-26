@@ -7,7 +7,7 @@ class VersionsController < ApplicationController
   end
 
   def create
-    version = Version.new(project_id: params[:project_id], title: params[:project][:title], description: params[:project][:description])
+    version = Version.new(project_id: params[:project_id], title: params[:version][:title], description: params[:version][:description])
     if version.save
       flash[:notice] = "new version added"
       redirect_to user_project_path(@user, @project)
@@ -25,6 +25,6 @@ class VersionsController < ApplicationController
   end
 
   def find_project
-    @user = Project.find(params[:project_id])
+    @project = Project.find(params[:project_id])
   end
 end

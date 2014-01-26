@@ -12,9 +12,9 @@
             <ul class='nav nav-responsive nav-tabs'>
 
               <!-- tab element -->
-              <%= @project.versions.each do |version| %>
-                <li>
-                  <a data-toggle='tab' href="##{version.id}">
+              <% @project.versions.each do |version| %>
+                <li class="<%= 'active' if version.id == @project.versions.first.id %>">
+                <a data-toggle='tab' href="#<%= version.id %>" >
                     <%= version.title %>
                   </a>
                 </li>

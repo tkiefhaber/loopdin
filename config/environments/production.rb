@@ -77,4 +77,15 @@ LoopdIn::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+
+  # aws upload
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => ENV['loopd_in'],
+      :access_key_id => ENV['AKIAIMINKSVU4KAPUP6A'],
+      :secret_access_key => ENV['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']
+    }
+  }
 end

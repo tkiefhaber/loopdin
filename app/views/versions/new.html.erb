@@ -25,6 +25,11 @@
                   </div>
                   <div class='form-group'>
                     <div class='controls with-icon-over-input'>
+                      <%= f.file_field :file, :class => 'form-control text-muted' %>
+                    </div>
+                  </div>
+                  <div class='form-group'>
+                    <div class='controls with-icon-over-input'>
                       <%= f.text_area :description, :class => 'form-control text-muted', :placeholder => "Description" %>
                     </div>
                   </div>

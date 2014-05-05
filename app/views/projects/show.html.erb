@@ -23,6 +23,7 @@
             <div class="tab-content">
               <% @project.versions.each do |version| %>
                 <div class="tab-pane<%= ' active' if version.id == @project.versions.first.id %>" id="retab<%= version.id %>">
+                  <p><%= video_tag version.file.url if version.file.present? %></p>
                   <p><%= version.description %></p>
                 </div>
               <% end %>

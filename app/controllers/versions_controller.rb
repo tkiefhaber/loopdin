@@ -8,6 +8,7 @@ class VersionsController < ApplicationController
 
   def create
     version = Version.new(version_params)
+    version.project = @project
     if version.save
       flash[:notice] = "new version added"
       redirect_to user_project_path(@user, @project)

@@ -1,5 +1,6 @@
 class Version < ActiveRecord::Base
   belongs_to :project
+  has_many :comments
   default_scope { order('created_at DESC') }
   has_attached_file :file
   validates_attachment_presence :file

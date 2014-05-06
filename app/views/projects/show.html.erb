@@ -1,3 +1,8 @@
+<head>
+  <script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>
+  <script src="http://toolness.github.com/instapoppin/instapoppin.js"></script>
+  </script>
+</head>
 <div id="wrapper">
   <section id="content">
     <div class="container-fluid">
@@ -23,9 +28,22 @@
             <div class="tab-content">
               <% @project.versions.each do |version| %>
                 <div class="tab-pane<%= ' active' if version.id == @project.versions.first.id %>" id="retab<%= version.id %>">
-                  <p><%= video_tag(version.file.url, controls: true, autobuffer: true, width: 960, height: 540 ) if version.file.present? %></p>
+                  <p><%= video_tag(version.file.url, id: "video-#{version.id}", controls: true, autobuffer: true, width: 960, height: 540 ) if version.file.present? %></p>
+                  <div id="footer-<%= version.id %>"></div>
                   <p><%= version.description %></p>
                 </div>
+                <script>
+                  Popcorn.player("baseplayer");
+                  var popcorn = Popcorn( "#video-<%= version.id %>" );
+
+                  popcorn.footnote({
+                    start: 2,
+                    end: 5,
+                    target: "footer-<%= version.id %>",
+                    text: "<%= version.description %>"
+                  });
+
+                </script>
               <% end %>
             </div>
           </div>
@@ -34,3 +52,4 @@
     </div>
   </section>
 </div>
+

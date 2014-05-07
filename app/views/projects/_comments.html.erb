@@ -1,0 +1,34 @@
+<div class='row'>
+  <div class='col-sm-12'>
+    <div class='box'>
+      <div class='row todo-list'>
+        <div class='col-sm-7'>
+          <div class='box'>
+            <div class='box-content box-no-padding'>
+              <div class='sortable-container'>
+                <ul class='list-unstyled ' data-sortable-axis='y' data-sortable-connect='.sortable'>
+                  <% version.comments.order('comments.priority ASC').each do |comment| %>
+                    <li class="<%= comment_classes(comment) %>">
+                      <label class='check pull-left todo'>
+                        <input type='checkbox'>
+                        <span>Comment Time: <%= comment.start_time %>: <%= comment.text %></span>
+                      </label>
+                      <div class='actions pull-right'>
+                        <a class='btn btn-link remove has-tooltip' data-placement='top' href='#' title='Remove todo'>
+                          <i class='icon-remove'></i>
+                        </a>
+                      </div>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

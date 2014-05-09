@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20140507135222) do
     t.integer  "start_time"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "priority"
+    t.boolean  "important",  default: false
     t.boolean  "addressed",  default: false
   end
 

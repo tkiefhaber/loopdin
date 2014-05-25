@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+
   devise :database_authenticatable,
          :registerable,
          :recoverable,
@@ -15,4 +14,9 @@ class User < ActiveRecord::Base
   validates_presence_of   :email
 
   has_many :projects
+  has_many :collaborations
+
+  def collabos
+    Project.where(id: collaborations.map(&:project_id))
+  end
 end

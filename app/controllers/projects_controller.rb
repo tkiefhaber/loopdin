@@ -16,6 +16,7 @@ class ProjectsController < ApplicationController
   def create
     project = Project.new(user_id: params[:user_id], title: params[:project][:title], description: params[:project][:description])
     if project.save
+      assign_collaborators(project)
       flash[:notice] = "new project created"
       redirect_to root_path
     else
@@ -33,6 +34,12 @@ class ProjectsController < ApplicationController
     when 'collabos'    then :collabos
     when 'approved'    then :approved
     else :all
+    end
+  end
+
+  def assign_collaborators(project)
+    params[:collaboration][:user].split(',').each do |c|
+      Collaboration.create(project_id: project.id, user_id: User.find_by_username(c).id)
     end
   end
 

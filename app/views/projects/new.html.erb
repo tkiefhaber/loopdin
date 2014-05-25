@@ -29,6 +29,13 @@
                     </div>
                   </div>
 
+                  <%= fields_for @project.collaborations.new do |collabos_form| %>
+                    <div class='form-group'>
+                      <div class='controls with-icon-over-input'>
+                        <%= collabos_form.text_area :user, :class => 'form-control text-muted', :placeholder => "list collaborators by username, separated by commas" %>
+                      </div>
+                    </div>
+                  <% end %>
                   <%= f.submit "Create", :class => 'btn btn-block' %>
 
                 <% end %>

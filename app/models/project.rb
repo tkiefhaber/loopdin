@@ -1,9 +1,11 @@
 class Project < ActiveRecord::Base
   belongs_to :user
   has_many :versions
+  has_many :collaborations, foreign_key: :project_id
   default_scope { order('created_at DESC') }
-  def self.collabos
-    in_progress
+
+  def collabos
+    User.where(id: collaborations.map(&:user_id))
   end
 
   include AASM

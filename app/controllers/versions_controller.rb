@@ -13,7 +13,7 @@ class VersionsController < ApplicationController
       flash[:notice] = "new version added"
       redirect_to user_project_path(@user, @project)
     else
-      flash[:warning] = "something went wrong, try again"
+      flash[:warning] = version.errors.full_messages[0]
       redirect_to :back
     end
 

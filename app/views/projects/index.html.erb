@@ -8,7 +8,7 @@
           <h1> Projects </h1>
           <h4><%= link_to "Add Project", new_user_project_path(@user), :class => 'btn btn-primary btn-large icon-plus-sign' %></h4>
           <% @projects.each do |project| %>
-            <div class="col-sm-3">
+            <div class="col-sm-3 <%= project.aasm_state %> <%= "collaboration" if project.user_id != current_user.id %>">
               <div class="box box-collapsed box-bordered">
                 <div class="box-header red-background">
                   <div class="title">
@@ -29,3 +29,29 @@
     </div>
   </section>
 </div>
+
+<script>
+  $("#in-progress").click(function(){
+    $('.in_progress').show();
+    $('.approved').hide();
+    $('.collaboration').hide();
+  });
+
+  $("#collabos").click(function(){
+    $('.in_progress').hide();
+    $('.approved').hide();
+    $('.collaboration').show();
+  });
+
+  $("#approved").click(function(){
+    $('.approved').show();
+    $('.collaboration').hide();
+    $('.in_progress').hide();
+  });
+
+  $("#all").click(function(){
+    $('.approved').show();
+    $('.collaboration').show();
+    $('.in_progress').show();
+  });
+</script>

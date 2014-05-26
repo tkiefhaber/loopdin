@@ -19,4 +19,8 @@ class User < ActiveRecord::Base
   def collabos
     Project.where(id: collaborations.map(&:project_id))
   end
+
+  def all_projects
+    projects + collabos
+  end
 end

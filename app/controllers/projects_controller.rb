@@ -24,19 +24,28 @@ class ProjectsController < ApplicationController
       flash[:warning] = "something went wrong, try again"
       redirect_to back
     end
+  end
 
+  def update
+    @project = Project.find(params[:id])
+    if params[:approved]
+      @project.approve!
+    elsif params[:needs_work]
+      @proejct.needs_work!
+    end
+    render :nothing => true
   end
 
   private
 
   def assign_collaborators(project)
-    params[:collaboration][:user].split(',').each do |c|
+    params[:collaboration][:user].split(', ').each do |c|
       Collaboration.create(project_id: project.id, user_id: User.find_by_username(c).id)
     end
   end
 
   def notify_collaborators(project)
-    ProjectMailer.new_collaboration_notification(User.where(id: project.collaborations.map(&:user_id)), project)
+    ProjectMailer.new_collaboration_notification(User.where(id: project.collaborations.map(&:user_id)), project).deliver
   end
 
   def find_user

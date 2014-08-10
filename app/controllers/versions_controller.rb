@@ -10,13 +10,27 @@ class VersionsController < ApplicationController
     version = Version.new(version_params)
     version.project = @project
     if version.save
+      @project.submit!
       flash[:notice] = "new version added"
       redirect_to user_project_path(@user, @project)
     else
       flash[:warning] = version.errors.full_messages[0]
       redirect_to :back
     end
+  end
 
+  def update
+    @version = Version.find(params[:id])
+    if params[:approved].present?
+      hash = {approved: params[:approved]}
+      @version.update_attributes(hash)
+      @version.project.approve!
+    elsif params[:needs_work].present?
+      hash = {approved: params[:approved]}
+      @version.update_attributes(hash)
+      @version.project.needs_work!
+    end
+    render :nothing => true
   end
 
   private

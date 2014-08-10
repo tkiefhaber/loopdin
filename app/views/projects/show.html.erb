@@ -10,7 +10,7 @@
         <div class="span2">
         </div><!--/span-->
         <div class="span10">
-          <h1> <%= @project.title %> </h1>
+          <h1><%= @project.title %></h1>
           <h4><%= link_to "Add Version", new_user_project_version_path(@user, @project), :class => 'btn btn-primary btn-large icon-plus-sign' %></h4>
           <div class='tabbable'>
             <!-- responsive tabs definition -->
@@ -33,7 +33,23 @@
                     <p><%= video_tag(version.file.url, id: "video-#{version.id}", controls: true, autobuffer: true, width: '82.5%' ) if version.file.present? %></p>
                   </div>
                   <div id="footer-<%= version.id %>"></div>
-                  <h4><%= link_to "Add Comment", new_user_project_version_comment_path(@user, @project, version, @comment), :class => 'btn btn-primary btn-large icon-plus-sign' %></h4>
+                  <div class='row col-sm-10'>
+                    <div class='col-sm-6'>
+                      <h4><%= link_to " Add Comment", new_user_project_version_comment_path(@user, @project, version), :class => 'btn btn-primary btn-large icon-plus-sign' %></h4>
+                    </div>
+                    <div class='col-sm-6'>
+                      <div class='pull-right'>
+                        <a class="btn btn-success approve" data-placement='top' href='#' title='Approve!' id="<%= version.id %>-approve">
+                          Approve!
+                          <i class='icon-thumbs-up'></i>
+                        </a>
+                        <a class='btn btn-danger needs-work' data-placement='top' href='#' title='needs work' id="<%= version.id %>-needs-work">
+                          Needs work
+                          <i class='icon-thumbs-down'></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                   <% version.comments.each do |comment| %>
                     <script>
                       Popcorn.player("baseplayer");
@@ -68,3 +84,28 @@
   </section>
 </div>
 
+
+<script>
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $(".approve").live("click", function(e) {
+    $.ajax({
+      url: "/users/<%= @project.user.id %>/projects/<%= @project.id %>/versions/" + parseInt(this.id) + "?approved=true"
+      type: "put",
+      dataType: "json",
+    });
+  });
+
+  $(".needs-work").live("click", function(e) {
+    $.ajax({
+      url: "/users/<%= @project.user.id %>/projects/<%= @project.id %>/versions/" + parseInt(this.id) + "?needs_work=true"
+      type: "put",
+      dataType: "json",
+    });
+  });
+
+</script>

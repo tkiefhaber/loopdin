@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title><%= @project.user.username %> added you to <%= @project.title %></title>
+  <title><%= @project.user.username %> submitted a new verions for <%= @project.title %></title>
   <style>
         /*<![CDATA[*/
     #outlook a {padding:0;} /* Force Outlook to provide a "view in browser" menu link. */
@@ -61,17 +61,17 @@
                               </tr>
                               <tr>
                                   <td align="center" valign="top">
-                                      <h4 style="color: #f34541 !important">You've been added to <%= @project.title %></h4>
+                                      <h4 style="color: #f34541 !important">Take a look at the latest version of <%= @project.title %></h4>
                                   </td>
                               </tr>
                               <tr>
                                   <td align="center" style="border-top: 1px solid #dce1e5;border-bottom: 1px solid #dce1e5;" valign="top">
-                                      <p style="margin: 1em 0;"><%= @project.description %> </p>
+                                      <p style="margin: 1em 0;"><%= @project.versions.first.description %> </p>
                                   </td>
                               </tr>
                               <tr>
                                   <td align="center" bgcolor="#f34541" valign="top">
-                                      <h3><%= link_to 'click to see the new hotness', user_project_url(@project.user, @project, host: 'loopd.in'), {style: 'color:#ffffff !important'} %></h3>
+                                      <h3><%= link_to 'click to see the latest & greatest', user_project_url(@project.user, @project, host: 'loopd.in'), {style: 'color:#ffffff !important'} %></h3>
                                   </td>
                               </tr>
                           </tbody></table>

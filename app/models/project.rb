@@ -14,6 +14,10 @@ class Project < ActiveRecord::Base
     state :submitted
     state :approved
 
+    event :notify do
+
+    end
+
     event :submit do
       transitions from: :in_progress, to: :submitted
     end
@@ -25,5 +29,9 @@ class Project < ActiveRecord::Base
     event :approve do
       transitions from: :submitted, to: :approved
     end
+  end
+
+  def notify_new_project
+    
   end
 end

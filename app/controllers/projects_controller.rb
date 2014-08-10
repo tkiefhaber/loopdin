@@ -17,6 +17,7 @@ class ProjectsController < ApplicationController
     project = Project.new(user_id: params[:user_id], title: params[:project][:title], description: params[:project][:description])
     if project.save
       assign_collaborators(project)
+      notify_collaborators(project)
       flash[:notice] = "new project created"
       redirect_to root_path
     else
@@ -32,6 +33,10 @@ class ProjectsController < ApplicationController
     params[:collaboration][:user].split(',').each do |c|
       Collaboration.create(project_id: project.id, user_id: User.find_by_username(c).id)
     end
+  end
+
+  def notify_collaborators(project)
+    ProjectMailer.new_collaboration_notification(User.where(id: project.collaborations.map(&:user_id)), project)
   end
 
   def find_user

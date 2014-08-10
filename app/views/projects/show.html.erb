@@ -28,9 +28,9 @@
             <div class="tab-content">
               <% @project.versions.each do |version| %>
                 <div class="tab-pane<%= ' active' if version.id == @project.versions.first.id %>" id="retab<%= version.id %>">
+                  <h2><%= version.description %></h2>
                   <div class='span8'>
                     <p><%= video_tag(version.file.url, id: "video-#{version.id}", controls: true, autobuffer: true, width: '82.5%' ) if version.file.present? %></p>
-                    <p><%= version.description %></p>
                   </div>
                   <div id="footer-<%= version.id %>"></div>
                   <h4><%= link_to "Add Comment", new_user_project_version_comment_path(@user, @project, version, @comment), :class => 'btn btn-primary btn-large icon-plus-sign' %></h4>

@@ -8,8 +8,9 @@ class CommentsController < ApplicationController
   end
 
   def create
-    comment = Comment.new(comment_params)
+    comment = Comment.new(create_params)
     comment.start_time = params[:comment][:start_time].to_i
+    comment.user_id = current_user.id
     comment.version = @version
     if comment.save
       flash[:notice] = "new comment added"
@@ -39,6 +40,10 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def create_params
+    params.permit(:user_id, :comment_id, :version_id, :id, :text, :start_time, :important, :addressed)
+  end
 
   def comment_params
     params.permit(:user_id, :comment_id, :version_id, :project_id, :id, :text, :start_time, :important, :addressed)

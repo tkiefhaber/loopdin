@@ -5,26 +5,24 @@
         <div class='col-sm-10'>
           <div class='box'>
             <div class='box-content box-no-padding'>
-              <div class='sortable-container'>
-                <ul class='list-unstyled ' data-sortable-axis='y' data-sortable-connect='.sortable'>
-                  <% version.comments.each do |comment| %>
-                    <li class="<%= comment_classes(comment) %>">
-                      <label class='check pull-left todo'>
-                        <input type='checkbox'>
-                        <span>Comment Time: <%= comment.start_time %>: <%= comment.text %></span>
-                      </label>
-                      <div class='actions pull-right'>
-                        <a class='btn btn-link remove has-tooltip' data-placement='top' href='#' title='Remove todo'>
-                          <i class='icon-remove'></i>
-                        </a>
-                        <a class='btn btn-link important has-tooltip' data-placement='top' href='#' title='Mark as important'>
-                          <i class='icon-bookmark-empty'></i>
-                        </a>
-                      </div>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
+              <ul class='list-unstyled ' data-sortable-axis='y' data-sortable-connect='.sortable'>
+                <% version.comments.each do |comment| %>
+                  <li class="<%= comment_classes(comment) %>" id="<%= comment.id %>">
+                    <label class='check pull-left todo'>
+                      <input type='checkbox' id="<%= comment.id %>-addressed" <%= comment.addressed ? 'checked' : '' %>>
+                      <span>Comment Time: <%= comment.start_time %>: <%= comment.text %></span>
+                    </label>
+                    <div class='actions pull-right'>
+                      <a class='btn btn-link remove has-tooltip' data-placement='top' href='#' title='Remove todo' id="<%= comment.id %>-delete">
+                        <i class='icon-remove'></i>
+                      </a>
+                      <a class='btn btn-link important has-tooltip' data-placement='top' href='#' title='Mark as important' id="<%= comment.id %>-important">
+                        <i class='icon-bookmark-empty'></i>
+                      </a>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
             </div>
           </div>
         </div>
@@ -35,6 +33,12 @@
 
 
 <script>
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
   $(".todo-list .new-todo").live('submit', function(e) {
     var li, todo_name;
     todo_name = $(this).find("#todo_name").val();
@@ -49,27 +53,43 @@
     }
     return e.preventDefault();
   });
-  
+
   $(".todo-list .actions .remove").live("click", function(e) {
     $(this).tooltip("hide");
     $(this).parents("li").fadeOut(500, function() {
       return $(this).remove();
     });
+    $.ajax({
+      url: "/users/<%= @project.user.id %>/projects/<%= @project.id %>/versions/<%= version.id %>/comments/" + parseInt(this.id),
+      type: "post",
+      dataType: "json",
+      data: {"_method":"delete"}
+    });
     e.stopPropagation();
     e.preventDefault();
     return false;
   });
-  
+
   $(".todo-list .actions .important").live("click", function(e) {
     $(this).parents("li").toggleClass("important");
+    $.ajax({
+      url: "/users/<%= @project.user.id %>/projects/<%= @project.id %>/versions/<%= version.id %>/comments/" + parseInt(this.id) + "?important=" + $(this).parents('li').hasClass('important'),
+      type: "put",
+      dataType: "json"
+    });
     e.stopPropagation();
     e.preventDefault();
     return false;
   });
-  
+
   $(".todo-list .check").live("click", function() {
     var checkbox;
     checkbox = $(this).find("input[type='checkbox']");
+    $.ajax({
+      url: "/users/<%= @project.user.id %>/projects/<%= @project.id %>/versions/<%= version.id %>/comments/" + parseInt(checkbox.attr('id')) + "?addressed=" + checkbox.is(":checked"),
+      type: "put",
+      dataType: "json"
+    });
     if (checkbox.is(":checked")) {
       return $(this).parents("li").addClass("done");
     } else {

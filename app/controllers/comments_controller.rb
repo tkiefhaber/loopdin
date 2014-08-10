@@ -18,13 +18,30 @@ class CommentsController < ApplicationController
       flash[:warning] = "something went wrong, try again"
       redirect_to :back
     end
+  end
 
+  def update
+    @comment = Comment.find(params[:id])
+    if params[:important].present?
+      hash = {important: params[:important]}
+    elsif params[:addressed].present?
+      hash = {addressed: params[:addressed]}
+    else
+      hash = {}
+    end
+    @comment.update_attributes(hash)
+    render :nothing => true
+  end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
   end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:text, :start_time)
+    params.permit(:user_id, :comment_id, :version_id, :project_id, :id, :text, :start_time, :important, :addressed)
   end
 
   def find_user

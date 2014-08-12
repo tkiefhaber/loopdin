@@ -9,11 +9,9 @@ class CommentsController < ApplicationController
   end
 
   def create
-    if @project.collaborations.map(&:user_id).include?(current_user.id)
-      puts @project.collaborations.map(&:user_id)
-      puts current_user.id
+    if !@project.collaborations.map(&:user_id).include?(current_user.id)
       flash[:error] = 'you are not authorized to comment on this project'
-      redirect_to :back
+      redirect_to user_project_path(@project.user, @project)
     else
       comment = Comment.new
       comment.start_time = params[:comment][:start_time].to_i
@@ -32,15 +30,18 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
-    if params[:important].present?
-      hash = {important: params[:important]}
-    elsif params[:addressed].present?
-      hash = {addressed: params[:addressed]}
+    if @project.user.id == current_user.id
+      if params[:important].present?
+        hash = {important: params[:important]}
+      elsif params[:addressed].present?
+        hash = {addressed: params[:addressed]}
+      else
+        hash = {}
+      end
+      @comment.update_attributes(hash)
+      render :nothing => true
     else
-      hash = {}
     end
-    @comment.update_attributes(hash)
-    render :nothing => true
   end
 
   def destroy

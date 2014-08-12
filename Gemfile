@@ -13,7 +13,7 @@ end
 gem 'aasm'
 gem 'sass-rails',   '~> 4.0.3'
 gem "compass-rails"
-gem "twitter-bootstrap-rails"
+gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'jquery-rails'
 gem "rspec-rails", ">= 2.12.2", :group => [:development, :test]
 gem "database_cleaner", ">= 0.9.1", :group => :test

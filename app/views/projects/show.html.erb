@@ -35,20 +35,22 @@
                     <div class='col-sm-2' id="footer-<%= version.id %>"></div>
                   </div>
                   <div class='row col-sm-12'>
-                    <div class='col-sm-5'>
-                      <%= link_to " Add Comment", new_user_project_version_comment_path(@user, @project, version), :class => 'btn btn-primary btn-large icon-plus-sign' %>
-                    </div>
-                    <div class='col-sm-5'>
-                      <div class='pull-right'>
-                        <a class="btn btn-success approve" data-placement='top' href='#' title='Approve!' id="<%= version.id %>-approve">
-                          Approve!
-                          <i class='icon-thumbs-up'></i>
-                        </a>
-                        <a class='btn btn-danger needs-work' data-placement='top' href='#' title='needs work' id="<%= version.id %>-needs-work">
-                          Needs work
-                          <i class='icon-thumbs-down'></i>
-                        </a>
+                    <% if can_comment_on_project?(@project) %>
+                      <div class='col-sm-5'>
+                        <%= link_to " Add Comment", new_user_project_version_comment_path(@user, @project, version), :class => 'btn btn-primary btn-large icon-plus-sign' %>
                       </div>
+                      <div class='col-sm-5'>
+                        <div class='pull-right'>
+                          <a class="btn btn-success approve" data-placement='top' href='#' title='Approve!' id="<%= version.id %>-approve">
+                            Approve!
+                            <i class='icon-thumbs-up'></i>
+                          </a>
+                          <a class='btn btn-danger needs-work' data-placement='top' href='#' title='needs work' id="<%= version.id %>-needs-work">
+                            Needs work
+                            <i class='icon-thumbs-down'></i>
+                          </a>
+                        </div>
+                      <% end %>
                     </div>
                   </div>
                   <div class='row col-sm-12'>
@@ -69,7 +71,6 @@
                     <%= render partial: 'comments', locals: {version: version} %>
                   </div>
                 </div>
-
               <% end %>
             </div>
           </div>

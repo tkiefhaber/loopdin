@@ -9,14 +9,14 @@
                 <% version.comments.each do |comment| %>
                   <li class="<%= comment_classes(comment) %>" id="<%= comment.id %>">
                     <label class='check pull-left todo'>
-                      <input type='checkbox' id="<%= comment.id %>-addressed" <%= comment.addressed ? 'checked' : '' %>>
+                      <input type='checkbox' id="<%= comment.id %>-addressed" <%= comment.addressed ? 'checked' : '' %> <%= 'disabled' unless can_update_comments?(@project) %>>
                       <span>Comment Time: <%= comment.start_time %>: <%= comment.text %><br/>~ <%= comment.user.username %></span>
                     </label>
                     <div class='actions pull-right'>
-                      <a class='btn btn-link remove has-tooltip' data-placement='top' href='#' title='Remove todo' id="<%= comment.id %>-delete">
+                      <a class='btn btn-link remove has-tooltip' data-placement='top' href='#' title='Remove todo' id="<%= comment.id %>-delete" <%= 'disabled' unless can_update_comments?(@project) %>>
                         <i class='icon-remove'></i>
                       </a>
-                      <a class='btn btn-link important has-tooltip' data-placement='top' href='#' title='Mark as important' id="<%= comment.id %>-important">
+                      <a class='btn btn-link important has-tooltip' data-placement='top' href='#' title='Mark as important' id="<%= comment.id %>-important" <%= 'disabled' unless can_update_comments?(@project) %>>
                         <i class='icon-bookmark-empty'></i>
                       </a>
                     </div>

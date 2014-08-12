@@ -12,7 +12,6 @@
 //= require flatty/plugins/common/moment.min
 //= require flatty/plugins/common/wysihtml5.min
 //= require flatty/plugins/common/bootstrap-wysihtml5
-//= require flatty/plugins/select2/select2
 //= require flatty/plugins/bootstrap_colorpicker/bootstrap-colorpicker.min
 //= require flatty/plugins/mention/mention.min
 //= require flatty/plugins/input_mask/bootstrap-inputmask.min

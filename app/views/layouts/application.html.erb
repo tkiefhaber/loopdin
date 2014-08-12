@@ -14,7 +14,7 @@
 
     <%= javascript_include_tag "application" %>
   </head>
-  <body>
+  <body class='main-nav-closed'>
     <% if user_signed_in? %>
       <%= render :partial => 'layouts/navigation' %>
     <% end %>
@@ -22,6 +22,31 @@
     <%= yield %>
     <footer>
     </footer>
+    <script>
+      $("#in-progress").click(function(){
+        $('.in_progress').show();
+        $('.approved').hide();
+        $('.collaboration').hide();
+      });
+
+      $("#collabos").click(function(){
+        $('.in_progress').hide();
+        $('.approved').hide();
+        $('.collaboration').show();
+      });
+
+      $("#approved").click(function(){
+        $('.approved').show();
+        $('.collaboration').hide();
+        $('.in_progress').hide();
+      });
+
+      $("#all").click(function(){
+        $('.approved').show();
+        $('.collaboration').show();
+        $('.in_progress').show();
+      });
+    </script>
 
   </body>
 </html>

@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 
   has_many :projects
   has_many :collaborations
+  has_many :comments
 
   def collabos
     Project.where(id: collaborations.map(&:project_id))

@@ -2,22 +2,31 @@ class CommentsController < ApplicationController
   before_filter :find_user
   before_filter :find_project
   before_filter :find_version
+  before_filter :ensure_user_can_update, only: [:update]
 
   def new
     @comment = Comment.new(version: @version)
   end
 
   def create
-    comment = Comment.new(create_params)
-    comment.start_time = params[:comment][:start_time].to_i
-    comment.user_id = current_user.id
-    comment.version = @version
-    if comment.save
-      flash[:notice] = "new comment added"
-      redirect_to user_project_path(@user, @project)
-    else
-      flash[:warning] = "something went wrong, try again"
+    if @project.collaborations.map(&:user_id).include?(current_user.id)
+      puts @project.collaborations.map(&:user_id)
+      puts current_user.id
+      flash[:error] = 'you are not authorized to comment on this project'
       redirect_to :back
+    else
+      comment = Comment.new
+      comment.start_time = params[:comment][:start_time].to_i
+      comment.text = params[:comment][:text]
+      comment.user_id = current_user.id
+      comment.version = @version
+      if comment.save
+        flash[:notice] = "new comment added"
+        redirect_to user_project_path(@user, @project)
+      else
+        flash[:warning] = "something went wrong, try again"
+        redirect_to :back
+      end
     end
   end
 
@@ -41,10 +50,6 @@ class CommentsController < ApplicationController
 
   private
 
-  def create_params
-    params.permit(:user_id, :comment_id, :version_id, :id, :text, :start_time, :important, :addressed)
-  end
-
   def comment_params
     params.permit(:user_id, :comment_id, :version_id, :project_id, :id, :text, :start_time, :important, :addressed)
   end
@@ -59,6 +64,10 @@ class CommentsController < ApplicationController
 
   def find_version
     @version = Version.find(params[:version_id])
+  end
+
+  def ensure_user_can_update
+    @project.user.id == current_user.id
   end
 end
  

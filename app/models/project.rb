@@ -27,7 +27,7 @@ class Project < ActiveRecord::Base
     end
 
     event :approve do
-      transitions from: :submitted, to: :approved, :on_transition => Proc.new {|obj| obj.notify_approval }
+      transitions from: [:in_progress, :submitted], to: :approved, :on_transition => Proc.new {|obj| obj.notify_approved }
     end
   end
 

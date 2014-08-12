@@ -4,54 +4,34 @@
       <div class="row-fluid">
         <div class="span2">
         </div><!--/span-->
-        <div class="span10">
-          <h1> Projects </h1>
-          <h4><%= link_to "Add Project", new_user_project_path(@user), :class => 'btn btn-primary btn-large icon-plus-sign' %></h4>
-          <% @projects.each do |project| %>
-            <div class="col-sm-3 <%= project.aasm_state %> <%= "collaboration" if project.user_id != current_user.id %>">
-              <div class="box box-collapsed box-bordered">
-                <div class="box-header red-background">
-                  <div class="title">
-                    <%= link_to project.title, user_project_path(@user, project.id) %>
+        <div class="row col-sm-12">
+          <div class='col-sm-12'>
+            <h1>Projects  <%= link_to " Add Project", new_user_project_path(@user), :class => 'btn btn-primary btn-large icon-plus-sign pull-right' %></h1>
+          </div>
+        </div>
+        <div class="row col-sm-12">
+          <div class='box-content'>
+            <% @projects.each do |project| %>
+              <div class="col-sm-4 <%= project.aasm_state %> <%= "collaboration" if project.user_id != current_user.id %>">
+                <div class="box box-collapsed box-bordered">
+                  <div class="box-header red-background">
+                    <div class="title">
+                      <%= link_to project.title, user_project_path(@user, project.id) %>
+                    </div>
+                    <div class="actions">
+                      <a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+                    </div>
                   </div>
-                  <div class="actions">
-                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+                  <div class="box-content">
+                    <%= project.description %>
                   </div>
-                </div>
-                <div class="box-content">
-                  <%= project.description %>
                 </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         </div>
       </div><!--/row-->
     </div>
   </section>
 </div>
 
-<script>
-  $("#in-progress").click(function(){
-    $('.in_progress').show();
-    $('.approved').hide();
-    $('.collaboration').hide();
-  });
-
-  $("#collabos").click(function(){
-    $('.in_progress').hide();
-    $('.approved').hide();
-    $('.collaboration').show();
-  });
-
-  $("#approved").click(function(){
-    $('.approved').show();
-    $('.collaboration').hide();
-    $('.in_progress').hide();
-  });
-
-  $("#all").click(function(){
-    $('.approved').show();
-    $('.collaboration').show();
-    $('.in_progress').show();
-  });
-</script>

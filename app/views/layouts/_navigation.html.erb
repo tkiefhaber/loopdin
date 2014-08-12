@@ -1,12 +1,11 @@
 <header>
   <nav class="navbar navbar-default">
-    <%= link_to image_tag("bigchicken.png", :height => 25, :width => 25, :alt => 'logo', :title => 'logo'), root_path, :class => 'navbar-brand logo' %>
+    <%= link_to image_tag("big_chicken_white.png", :height => 25, :width => 25, :alt => 'logo', :title => 'logo'), root_path, :class => 'navbar-brand logo' %>
     <!-- dropdowns -->
     <a class='toggle-nav btn pull-left' href='#'>
       <i class='icon-reorder'></i>
     </a>
     <ul class="nav">
-      <!-- dark dropdown & user menu -->
       <li class="dropdown dark user-menu">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
           <span class="user-name">
@@ -28,10 +27,17 @@
   <nav id="main-nav">
     <div class='navigation'>
       <ul class='nav nav-stacked'>
-        <li><a href='#' class='icon-beaker nav-hideable' id='in-progress'> mine in progress</a></li>
-        <li><a href='#' class='icon-group nav-hideable' id='collabos'> collaborations in progress</a></li>
-        <li><a href='#' class='icon-check nav-hideable' id='approved'> my approved</a></li>
-        <li><a href='#' class='icon-suitcase nav-hideable' id='all'> all</a></li>
+        <% if request.path == "/users/#{current_user.id}/projects" %>
+          <li><a href='#' class='icon-beaker nav-hideable' id='in-progress'><span> mine in progress</span></a></li>
+          <li><a href='#' class='icon-group nav-hideable' id='collabos'><span> collaborations in progress</span></a></li>
+          <li><a href='#' class='icon-check nav-hideable' id='approved'><span> my approved</span></a></li>
+          <li><a href='#' class='icon-suitcase nav-hideable' id='all'><span> all</span></a></li>
+        <% else %>
+          <li><a href='/' class='icon-beaker nav-hideable' id='in-progress'><span> mine in progress</span></a></li>
+          <li><a href='/' class='icon-group nav-hideable' id='collabos'><span> collaborations in progress</span></a></li>
+          <li><a href='/' class='icon-check nav-hideable' id='approved'><span> my approved</span></a></li>
+          <li><a href='/' class='icon-suitcase nav-hideable' id='all'><span> all</span></a></li>
+        <% end %>
       </ul>
     </div>
   </nav>

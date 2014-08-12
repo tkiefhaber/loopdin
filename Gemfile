@@ -1,17 +1,17 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails', '4.1.1'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', :group => [:development, :test]
 gem 'pg', :group => [:production]
 group :assets do
-  gem 'coffee-rails', '~> 4.0.0'
+  gem 'coffee-rails', '~> 4.0.1'
   gem 'uglifier', '>= 1.0.3'
 end
 gem 'aasm'
-gem 'sass-rails',   '~> 4.0.0'
+gem 'sass-rails',   '~> 4.0.3'
 gem "compass-rails"
 gem "twitter-bootstrap-rails"
 gem 'jquery-rails'

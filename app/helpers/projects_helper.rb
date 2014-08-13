@@ -4,7 +4,7 @@ module ProjectsHelper
   end
 
   def can_update_comments?(project)
-    project.collabos.map(&:id).include?(current_user.id)
+    project.user_id == current_user.id || project.collabos.map(&:id).include?(current_user.id)
   end
 
   def can_approve?(project)

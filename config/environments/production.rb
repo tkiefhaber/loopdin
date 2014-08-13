@@ -83,9 +83,9 @@ LoopdIn::Application.configure do
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
-      :bucket => ENV['loopdin'],
-      :access_key_id => ENV['AKIAIMINKSVU4KAPUP6A'],
-      :secret_access_key => ENV['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']
+      :bucket => 'loopdin',
+      :access_key_id => 'AKIAIMINKSVU4KAPUP6A',
+      :secret_access_key => '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'
     }
   }
 end

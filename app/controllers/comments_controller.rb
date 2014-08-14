@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
       comment.version = @version
       if comment.save
         flash[:notice] = "new comment added"
-        redirect_to user_project_path(@user, @project)
+        redirect_to user_project_path(@project.user, @project)
       else
         flash[:warning] = "something went wrong, try again"
         redirect_to :back

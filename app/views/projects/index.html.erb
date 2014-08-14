@@ -16,14 +16,18 @@
                 <div class="box box-collapsed box-bordered">
                   <div class="box-header red-background">
                     <div class="title">
-                      <%= link_to project.title, user_project_path(@user, project.id) %>
+                      <%= link_to project.title, user_project_path(project.user, project.id) %>
                     </div>
                     <div class="actions">
                       <a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
                     </div>
                   </div>
                   <div class="box-content">
-                    <%= project.description %>
+                    <h4><%= project.description %></h4>
+                    <h4>Status: <%= project.aasm_state.titleize %></h4>
+                    <% if project.versions.present? && project.versions.first.comments.present? %>
+                      <h4>Comments on latest version: <%= project.versions.first.comments.count %></h4>
+                    <% end %>
                   </div>
                 </div>
               </div>

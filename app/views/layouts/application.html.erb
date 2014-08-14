@@ -25,12 +25,14 @@
     <script>
       $("#in-progress").click(function(){
         $('.in_progress').show();
+        $('.submitted').show();
         $('.approved').hide();
         $('.collaboration').hide();
       });
 
       $("#collabos").click(function(){
         $('.in_progress').hide();
+        $('.submitted').hide();
         $('.approved').hide();
         $('.collaboration').show();
       });
@@ -39,12 +41,14 @@
         $('.approved').show();
         $('.collaboration').hide();
         $('.in_progress').hide();
+        $('.submitted').hide();
       });
 
       $("#all").click(function(){
         $('.approved').show();
         $('.collaboration').show();
         $('.in_progress').show();
+        $('.submitted').show();
       });
     </script>
 

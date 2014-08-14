@@ -12,7 +12,7 @@ class VersionsController < ApplicationController
     if version.save
       @project.submit!
       flash[:notice] = "new version added"
-      redirect_to user_project_path(@user, @project)
+      redirect_to user_project_path(@project.user, @project)
     else
       flash[:warning] = version.errors.full_messages[0]
       redirect_to :back

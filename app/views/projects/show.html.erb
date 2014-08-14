@@ -29,7 +29,6 @@
             <div class="tab-content">
               <% @project.versions.each do |version| %>
                 <div class="tab-pane <%= 'active' if version.id == @project.versions.first.id %>" id="retab<%= version.id %>">
-                  <h3><%= version.id %></h3>
                   <h2><%= version.description %></h2>
                   <div class='row col-sm-12'>
                     <div class='col-sm-10'>

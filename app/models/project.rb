@@ -4,6 +4,11 @@ class Project < ActiveRecord::Base
   has_many :collaborations, foreign_key: :project_id
   default_scope { order('created_at DESC') }
 
+  validates_uniqueness_of :title, :case_sensitive => false, :scope => :user_id
+
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   def collabos
     User.where(id: collaborations.map(&:user_id))
   end

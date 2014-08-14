@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   validates_presence_of   :username
   validates_presence_of   :email
 
+  extend FriendlyId
+  friendly_id :username, use: :slugged
+
   has_many :projects
   has_many :collaborations
   has_many :comments

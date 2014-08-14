@@ -27,7 +27,7 @@
   <nav id="main-nav">
     <div class='navigation'>
       <ul class='nav nav-stacked'>
-        <% if request.path == "/users/#{current_user.id}/projects" %>
+        <% if request.path == "/users/#{current_user.username}/projects" %>
           <li><a href='#' class='icon-beaker nav-hideable' id='in-progress'><span> mine in progress</span></a></li>
           <li><a href='#' class='icon-group nav-hideable' id='collabos'><span> collaborations in progress</span></a></li>
           <li><a href='#' class='icon-check nav-hideable' id='approved'><span> my approved</span></a></li>

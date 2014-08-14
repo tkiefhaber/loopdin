@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find(params[:id])
+    @project = Project.find_by_slug(params[:id])
   end
 
   def new
@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    project = Project.new(user_id: params[:user_id], title: params[:project][:title], description: params[:project][:description])
+    project = Project.new(user_id: @user.id, title: params[:project][:title], description: params[:project][:description])
     if project.save
       assign_collaborators(project)
       notify_collaborators(project)
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project = Project.find(params[:id])
+    @project = Project.find_by_slug(params[:id])
     if params[:approved]
       @project.approve!
     elsif params[:needs_work]
@@ -49,7 +49,7 @@ class ProjectsController < ApplicationController
   end
 
   def find_user
-    @user = User.find(params[:user_id])
+    @user = User.find_by_username(params[:user_id])
   end
 
 end

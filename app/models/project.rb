@@ -44,6 +44,10 @@ class Project < ActiveRecord::Base
   end
 
   def persons_to_notify
-    collabos += [user]
+    if collabos.present?
+      collabos.to_a + [user]
+    else
+      [user]
+    end
   end
 end

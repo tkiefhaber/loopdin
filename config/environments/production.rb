@@ -80,12 +80,23 @@ LoopdIn::Application.configure do
 
 
   # aws upload
-  config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_credentials => {
-      :bucket => 'loopdin',
-      :access_key_id => 'AKIAIMINKSVU4KAPUP6A',
-      :secret_access_key => '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'
+  if Rails.env.production?
+    config.paperclip_defaults = {
+      :storage => :s3,
+      :s3_credentials => {
+        :bucket => 'loopdin',
+        :access_key_id => 'AKIAIMINKSVU4KAPUP6A',
+        :secret_access_key => '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'
+      }
     }
-  }
+  else
+    config.paperclip_defaults = {
+      :storage => :s3,
+      :s3_credentials => {
+        :bucket => ENV['loopdin'],
+        :access_key_id => ENV['AKIAIMINKSVU4KAPUP6A'],
+        :secret_access_key => ENV['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']
+      }
+    }
+  end
 end

@@ -78,6 +78,7 @@ LoopdIn::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
+  GA.tracker = 'UA-53864311-1'
 
   # aws upload
   if Rails.env.production?

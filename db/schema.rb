@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140816151637) do
+ActiveRecord::Schema.define(version: 20140816154951) do
 
   create_table "collaborations", force: true do |t|
     t.integer "project_id"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 20140816151637) do
     t.boolean  "addressed",  default: false
     t.integer  "user_id"
   end
+
+  create_table "group_users", force: true do |t|
+    t.integer "group_id"
+    t.integer "user_id"
+    t.boolean "admin",    default: false
+  end
+
+  add_index "group_users", ["group_id"], name: "index_group_users_on_group_id"
+  add_index "group_users", ["user_id"], name: "index_group_users_on_user_id"
 
   create_table "groups", force: true do |t|
     t.string "title"

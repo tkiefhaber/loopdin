@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140816154951) do
+ActiveRecord::Schema.define(version: 20140816155459) do
 
   create_table "collaborations", force: true do |t|
     t.integer "project_id"
@@ -56,8 +56,10 @@ ActiveRecord::Schema.define(version: 20140816154951) do
     t.datetime "updated_at"
     t.string   "aasm_state"
     t.string   "slug"
+    t.integer  "group_id"
   end
 
+  add_index "projects", ["group_id"], name: "index_projects_on_group_id"
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true
 
   create_table "users", force: true do |t|

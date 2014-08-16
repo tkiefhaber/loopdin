@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
   belongs_to :user
+  belongs_to :group
   has_many :versions
   has_many :collaborations, foreign_key: :project_id
   default_scope { order('created_at DESC') }

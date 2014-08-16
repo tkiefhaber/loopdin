@@ -11,9 +11,7 @@
         </div><!--/span-->
         <div class="span10">
           <div class='col-sm-12'>
-            <% if @project.user.id == current_user.id %>
-              <h1><%= @project.title %>  <%= link_to "Add Version", new_user_project_version_path(@project.user, @project), :class => 'btn btn-primary btn-large icon-plus-sign pull-right' %></h1>
-            <% end %>
+            <h1><%= @project.title %>: <%= @project.aasm_state.titleize %>  <%= (link_to "Add Version", new_user_project_version_path(@project.user, @project), :class => 'btn btn-primary btn-large icon-plus-sign pull-right') if @project.user_id == current_user.id %></h1>
           </div>
           <div class='tabbable'>
             <ul class='nav nav-responsive nav-tabs'>
@@ -29,7 +27,7 @@
             <div class="tab-content">
               <% @project.versions.each do |version| %>
                 <div class="tab-pane <%= 'active' if version.id == @project.versions.first.id %>" id="retab<%= version.id %>">
-                  <h2><%= version.description %></h2>
+                  <h2><%= version.description %>: <span><%= version.approved ? 'Approved' : 'In Progress' %></span></h2>
                   <div class='row col-sm-12'>
                     <div class='col-sm-10'>
                       <%= video_tag(version.file.url, id: "video-#{version.id}", controls: true, autobuffer: true, width: '100%' ) if version.file.present? %>
@@ -99,6 +97,7 @@
   });
 
   $(".approve").click(function() {
+    alert('Approved!');
     $.ajax({
       url: "/users/<%= @project.user.id %>/projects/<%= @project.id %>/versions/" + parseInt(this.id) + "?approved=true",
       type: "put",
@@ -107,6 +106,7 @@
   });
 
   $(".needs-work").click(function() {
+    alert('Sent back for revisions!');
     $.ajax({
       url: "/users/<%= @project.user.id %>/projects/<%= @project.id %>/versions/" + parseInt(this.id) + "?needs_work=true",
       type: "put",

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140814163947) do
+ActiveRecord::Schema.define(version: 20140815233733) do
 
   create_table "collaborations", force: true do |t|
     t.integer "project_id"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20140814163947) do
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "approved"
+    t.boolean  "approved",          default: false
     t.string   "file_file_name"
     t.string   "file_content_type"
     t.integer  "file_file_size"

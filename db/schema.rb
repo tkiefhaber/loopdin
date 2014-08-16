@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140815233733) do
+ActiveRecord::Schema.define(version: 20140816151637) do
 
   create_table "collaborations", force: true do |t|
     t.integer "project_id"
@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(version: 20140815233733) do
     t.boolean  "addressed",  default: false
     t.integer  "user_id"
   end
+
+  create_table "groups", force: true do |t|
+    t.string "title"
+    t.string "slug"
+  end
+
+  add_index "groups", ["slug"], name: "index_groups_on_slug"
 
   create_table "projects", force: true do |t|
     t.string   "title"

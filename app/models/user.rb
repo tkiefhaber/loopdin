@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :username, use: :slugged
 
+  has_many :groups, through: :group_users
   has_many :projects
   has_many :collaborations
   has_many :comments

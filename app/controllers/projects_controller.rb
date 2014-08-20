@@ -14,24 +14,12 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    project = Project.new(
-      user_id: @user.id,
-      title: params[:project][:title],
-      description: params[:project][:description],
-    )
-
-    group = Group.find_by_slug(current_subdomain)
-    project.group = group if group.present?
-
+    project = Project.new(user_id: @user.id, title: params[:project][:title], description: params[:project][:description])
     if project.save
       assign_collaborators(project)
       notify_collaborators(project)
       flash[:notice] = "new project created"
-      if group.present?
-        redirect_to root_path(subdomain: group.slug)
-      else
-        redirect_to root_path
-      end
+      redirect_to root_path
     else
       flash[:warning] = project.errors.full_messages.to_sentence
       redirect_to :back

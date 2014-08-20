@@ -32,4 +32,3 @@ gem 'aws-sdk'
 gem 'rails_12factor', group: :production
 gem 'friendly_id'
 gem 'google-analytics-rails'
-gem 'subdomain-fu', :git => "git://github.com/nhowell/subdomain-fu.git"

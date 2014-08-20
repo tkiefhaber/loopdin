@@ -1,10 +1,4 @@
 GIT
-  remote: git://github.com/nhowell/subdomain-fu.git
-  revision: c6fbf945cf3f4ab344f9c8e0604dc5dcca9ee6cf
-  specs:
-    subdomain-fu (1.0.0.beta2)
-
-GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
   revision: b86063aa9fb47effdc9937788eb2b3d51c26f934
   specs:
@@ -244,6 +238,5 @@ DEPENDENCIES
   rspec-rails (>= 2.12.2)
   sass-rails (~> 4.0.3)
   sqlite3
-  subdomain-fu!
   twitter-bootstrap-rails!
   uglifier (>= 1.0.3)

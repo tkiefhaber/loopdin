@@ -21,8 +21,8 @@ class ProjectsController < ApplicationController
       flash[:notice] = "new project created"
       redirect_to root_path
     else
-      flash[:warning] = "something went wrong, try again"
-      redirect_to back
+      flash[:warning] = project.errors.full_messages.to_sentence
+      redirect_to :back
     end
   end
 

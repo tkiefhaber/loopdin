@@ -1,0 +1,58 @@
+<body class=''>
+  <div class='middle-container'>
+    <div class='middle-row'>
+      <div class='middle-wrapper'>
+        <div class='login-container-header'>
+          <div class='container'>
+            <div class='row'>
+              <div class='col-sm-12'>
+                <div class='text-center'>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='login-container'>
+          <div class='container'>
+            <div class='row'>
+              <div class='col-sm-4 col-sm-offset-4'>
+                <h1 class='text-center title'>New Group</h1>
+                <%= form_for @group, :html => {class: "validate-form"} do |f| %>
+                  <div class="form-group">
+                    <div class='controls with-icon-over-input'>
+                      <%= f.text_field :title, :autofocus => true, :class => 'form-control text-muted', :placeholder => 'Title' %>
+                    </div>
+                  </div>
+                  <%= fields_for @group.users.new do |group_users| %>
+                    <div class='form-group'>
+                      <div class='controls with-icon-over-input'>
+                        <%= group_users.text_area :username, :class => 'form-control text-muted', :placeholder => "list group mambers by username, separated by commas" %>
+                      </div>
+                    </div>
+                  <% end %>
+                  <%= f.submit "Create", :class => 'btn btn-block' %>
+
+                <% end %>
+                <div class='text-center'>
+                  <hr class='hr-normal'>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='login-container-footer'>
+          <div class='container'>
+            <div class='row'>
+              <div class='col-sm-12'>
+                <div class='text-center'>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+

@@ -1,0 +1,45 @@
+<div id="wrapper">
+  <section id="content">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span2">
+        </div><!--/span-->
+        <div class="row col-sm-12">
+          <div class='col-sm-12'>
+            <h1>Group  <%= link_to " Add Group", new_group_path, :class => 'btn btn-primary btn-large icon-plus-sign pull-right' %></h1>
+          </div>
+        </div>
+        <div class="row col-sm-12">
+          <div class='box-content'>
+            <% @groups.each do |group| %>
+              <div class="col-sm-4">
+                <div class="box box-collapsed box-bordered">
+                  <div class="box-header red-background">
+                    <div class="title">
+                      <%= group.title %>
+                    </div>
+                    <div class="actions">
+                      <a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+                    </div>
+                  </div>
+                  <div class="box-content">
+                    <%= link_to ' Add Users', edit_group_path(group), :class => 'btn btn-primary icon-plus-sign pull-right' %>
+                    <% if group.users.present? %>
+                      <ul>
+                        <% group.users.each do |user| %>
+                          <li><%= link_to user.username, user_projects_path(user) %></li>
+                        <% end %>
+                      </ul>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div><!--/row-->
+    </div>
+  </section>
+</div>
+
+

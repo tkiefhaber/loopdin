@@ -14,6 +14,11 @@
           <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
+          <% @user.group_admin.each do |group_admin| %>
+            <li>
+              <%= link_to "Group #{group_admin.title}", edit_group_path(group_admin) %>
+            </li>
+          <% end %>
           <li>
             <%= link_to "Edit #{@user.username}", edit_user_registration_path %>
           </li>

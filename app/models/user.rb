@@ -33,4 +33,9 @@ class User < ActiveRecord::Base
   def belongs_to?(group)
     group.users.include?(self)
   end
+
+  def group_admin
+    ids = group_users.where(admin: true).map(&:group_id)
+    Group.where(id: ids)
+  end
 end

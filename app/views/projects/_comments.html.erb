@@ -39,21 +39,6 @@
     }
   });
 
-  $(".todo-list .new-todo").live('submit', function(e) {
-    var li, todo_name;
-    todo_name = $(this).find("#todo_name").val();
-    $(this).find("#todo_name").val("");
-    if (todo_name.length !== 0) {
-      li = $(this).parents(".todo-list").find("li.item").first().clone();
-      li.find("input[type='checkbox']").attr("checked", false);
-      li.removeClass("important").removeClass("done");
-      li.find("label.todo span").text(todo_name);
-      $(".todo-list ul").first().prepend(li);
-      li.effect("highlight", {}, 500);
-    }
-    return e.preventDefault();
-  });
-
   $(".todo-list .actions .remove").live("click", function(e) {
     $(this).tooltip("hide");
     $(this).parents("li").fadeOut(500, function() {

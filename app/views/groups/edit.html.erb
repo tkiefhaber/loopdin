@@ -1,50 +1,72 @@
-<body class=''>
-  <div class='middle-container'>
-    <div class='middle-row'>
-      <div class='middle-wrapper'>
-        <div class='login-container-header'>
-          <div class='container'>
-            <div class='row'>
-              <div class='col-sm-12'>
-                <div class='text-center'>
-                </div>
+<div class='middle-container'>
+  <div class='middle-row'>
+    <div class='middle-wrapper'>
+      <div class='login-container-header'>
+        <div class='container'>
+          <div class='row'>
+            <div class='col-sm-12'>
+              <div class='text-center'>
               </div>
             </div>
           </div>
         </div>
-        <div class='login-container'>
-          <div class='container'>
-            <div class='row'>
-              <div class='col-sm-4 col-sm-offset-4'>
-                <h1 class='text-center title'>Edit Group</h1>
-                <%= form_for @group, :html => {class: "validate-form"} do |f| %>
-                  <div class="form-group">
-                    <div class='controls with-icon-over-input'>
-                      <%= f.text_field :title, :autofocus => true, :class => 'form-control text-muted', :placeholder => 'Title' %>
-                    </div>
+      </div>
+      <div class='login-container'>
+        <div class='container'>
+          <div class='row'>
+            <div class='col-sm-4 col-sm-offset-4'>
+              <h1 class='text-center title'>Edit Group</h1>
+              <%= form_for @group, :html => {class: "validate-form"} do |f| %>
+                <div class="form-group">
+                  <div class='controls with-icon-over-input'>
+                    <%= f.text_field :title, :autofocus => true, :class => 'form-control text-muted', :placeholder => 'Title' %>
                   </div>
-                  <%= fields_for @group.users.new do |group_users| %>
-                    <div class='form-group'>
-                      <div class='controls with-icon-over-input'>
-                        <%= group_users.text_area :username, :class => 'form-control text-muted' %>
+                </div>
+                <%= f.submit "Update", :class => 'btn btn-block' %>
+
+              <% end %>
+              <div class='text-center'>
+                <hr class='hr-normal'>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='login-container-footer'>
+        <div class='container'>
+          <div class='row'>
+            <div class='col-sm-4 col-sm-offset-4'>
+              <div class='box'>
+                <div class='row todo-list'>
+                  <div class='col-sm-12'>
+                    <div class='box'>
+                      <div class='box-content box-no-padding'>
+                        <form class="new-todo" method="post" action="#" accept-charset="UTF-8"><input name="authenticity_token" type="hidden" /><input class='form-control' id='username' name='user[username]' placeholder='add username...' type='text'>
+                          <button class='btn btn-success' type='submit'>
+                            <i class='icon-plus'></i>
+                          </button>
+                        </form>
+                        <ul class='list-unstyled'>
+                          <% @group.users.each do |user| %>
+                            <% next unless user.id.present? %>
+                            <li class="item <%= 'important' if @group.admin?(user) %>" id="<%= user.id %>">
+                              <label class='pull-left todo'>
+                                <span><%= user.username %></span>
+                              </label>
+                              <div class='actions pull-right'>
+                                <a class='btn btn-link remove has-tooltip' data-placement='top' href='#' title='Remove user' id="<%= user.id %>-delete">
+                                  <i class='icon-remove'></i>
+                                </a>
+                                <a class='btn btn-link important has-tooltip' data-placement='top' href='#' title='make admin' id="<%= user.id %>-admin">
+                                  <i class='icon-bookmark-empty'></i>
+                                </a>
+                              </div>
+                            </li>
+                          <% end %>
+                        </ul>
                       </div>
                     </div>
-                  <% end %>
-                  <%= f.submit "Update", :class => 'btn btn-block' %>
-
-                <% end %>
-                <div class='text-center'>
-                  <hr class='hr-normal'>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class='login-container-footer'>
-          <div class='container'>
-            <div class='row'>
-              <div class='col-sm-12'>
-                <div class='text-center'>
+                  </div>
                 </div>
               </div>
             </div>
@@ -53,6 +75,65 @@
       </div>
     </div>
   </div>
-</body>
+</div>
 
+<script>
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $(".todo-list .new-todo").live('submit', function(e) {
+    var li, username;
+    username = $(this).find("#username").val();
+    $(this).find("#username").val("");
+    if (username.length !== 0) {
+      $.ajax({
+        url: "/groups/<%= @group.slug %>?add_user=true&username=" + username,
+        type: "put",
+        dataType: "json",
+        data: {"_method":"update"}
+      });
+      li = $(this).parents(".todo-list").find("li.item").first().clone();
+      li.find("label.todo span").text(username);
+      li.removeClass('important');
+      $(".todo-list ul").first().prepend(li);
+      li.effect("highlight", {}, 500);
+    }
+    return e.preventDefault();
+  });
+
+  $(".todo-list .actions .remove").live("click", function(e) {
+    var username = $(this).parents('li').first().children().first()[0].innerText;
+    $(this).tooltip("hide");
+    $(this).parents("li").fadeOut(500, function() {
+      return $(this).remove();
+    });
+    $.ajax({
+      url: "/groups/<%= @group.slug %>?&username=" + username,
+      type: "delete",
+      dataType: "json",
+      data: {"_method":"destroy"}
+    });
+    e.stopPropagation();
+    e.preventDefault();
+    return false;
+  });
+
+  $(".todo-list .actions .important").live("click", function(e) {
+    $(this).parents("li").toggleClass("important");
+    var username = $(this).parents('li').first().children().first()[0].innerText;
+    $.ajax({
+      url: "/groups/<%= @group.slug %>?admin=" + $(this).parents('li').hasClass('important') + "&username=" + username,
+      type: "put",
+      dataType: "json",
+      data: {"_method":"update"}
+    });
+    e.stopPropagation();
+    e.preventDefault();
+    return false;
+  });
+
+</script>
 

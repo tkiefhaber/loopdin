@@ -14,7 +14,8 @@ class Version < ActiveRecord::Base
     has_attached_file :file
   end
   validates_attachment_presence :file
+  validates_attachment_size :file, less_than: 15.megabytes
   validates_attachment_content_type :file,
-    :content_type => ['video/mp4'],
-    :message => "Sorry, right now we only support MP4 video"
+    :content_type => ['video/mp4', 'video/quicktime'],
+    :message => "Sorry, right now we only support MP4 and MOV video formats"
 end

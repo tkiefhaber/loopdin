@@ -7,6 +7,10 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find_by_slug(params[:id])
+    unless user_permitted?
+      flash[:danger] = "you aren't supposed to be looking at this project."
+      redirect_to root_path
+    end
   end
 
   def new
@@ -14,9 +18,11 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    project = Project.new(user_id: @user.id, title: params[:project][:title], description: params[:project][:description])
-    if project.save
+    project = Project.create(user_id: @user.id, title: params[:project][:title], description: params[:project][:description])
+    if project.save!
+      assign_group(project)
       assign_collaborators(project)
+      add_version(project)
       notify_collaborators(project)
       flash[:notice] = "new project created"
       redirect_to root_path
@@ -44,12 +50,34 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def add_version(project)
+    project.versions.create(title: params[:version][:title], description: params[:version][:description], file: params[:version][:file])
+    project.save!
+  end
+
+  def assign_group(project)
+    if @user.groups.count == 1
+      project.group = @user.groups.first
+    else
+      project.group = Group.find params[:project][:group]
+    end
+    project.save!
+  end
+
   def notify_collaborators(project)
     ProjectMailer.new_collaboration_notification(User.where(id: project.collaborations.map(&:user_id)), project).deliver
   end
 
   def find_user
     @user = User.find_by_username(params[:user_id])
+  end
+
+  def user_permitted?
+    current_user.belongs_to?(@project.group)
+  end
+
+  def version_params
+    params[:version].permit(:title, :file, :description)
   end
 
 end

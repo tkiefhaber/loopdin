@@ -56,11 +56,11 @@ class CommentsController < ApplicationController
   end
 
   def find_user
-    @user = User.find(params[:user_id])
+    @user = User.find_by_slug(params[:user_id])
   end
 
   def find_project
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
   end
 
   def find_version

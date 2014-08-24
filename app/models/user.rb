@@ -29,4 +29,8 @@ class User < ActiveRecord::Base
   def all_projects
     projects + collabos
   end
+
+  def belongs_to?(group)
+    group.users.include?(self)
+  end
 end

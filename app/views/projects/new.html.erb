@@ -17,7 +17,7 @@
             <div class='row'>
               <div class='col-sm-4 col-sm-offset-4'>
                 <h1 class='text-center title'>New project</h1>
-                <%= form_for [@user, @project], :html => {class: "validate-form"} do |f| %>
+                <%= form_for [@user, @project], :html => {:multipart => true, :class => "validate-form"} do |f| %>
                   <div class="form-group">
                     <div class='controls with-icon-over-input'>
                       <%= f.text_field :title, :autofocus => true, :class => 'form-control text-muted', :placeholder => 'Title' %>
@@ -36,6 +36,34 @@
                       </div>
                     </div>
                   <% end %>
+
+                  <% if @user.groups.count > 1 %>
+                    <div class='form-group'>
+                      <div class='controls with-icon-over-input'>
+                        <%= f.select :group, options_for_select(@user.groups.map{|g| [g.title, g.id]}), :class => 'select2-drop-mask form-control' %>
+                      </div>
+                    </div>
+                  <% end %>
+
+                  <h4>Add your first version right off the bat</h5>
+                  <%= fields_for @project.versions.new do |versions_form| %>
+                    <div class="form-group">
+                      <div class='controls with-icon-over-input'>
+                        <%= versions_form.text_field :title, :autofocus => true, :class => 'form-control text-muted', :placeholder => 'Title' %>
+                      </div>
+                    </div>
+                    <div class='form-group'>
+                      <div class='controls with-icon-over-input'>
+                        <%= versions_form.file_field :file, :class => 'form-control text-muted' %>
+                      </div>
+                    </div>
+                    <div class='form-group'>
+                      <div class='controls with-icon-over-input'>
+                        <%= versions_form.text_area :description, :class => 'form-control text-muted', :placeholder => "Description" %>
+                      </div>
+                    </div>
+                  <% end %>
+
                   <%= f.submit "Create", :class => 'btn btn-block' %>
 
                 <% end %>

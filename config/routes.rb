@@ -1,9 +1,10 @@
 LoopdIn::Application.routes.draw do
   devise_scope :user do
-    root to: "devise/sessions#new"
+    root to: "home#index"
   end
   devise_for :users
   resources :groups
+  resources :home
   resources :users do
     resources :projects do
       resources :versions do

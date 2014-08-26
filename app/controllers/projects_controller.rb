@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
     @project = Project.find_by_slug(params[:id])
     unless user_permitted?
       flash[:danger] = "you aren't supposed to be looking at this project."
-      redirect_to root_path
+      redirect_to user_projects_path(@user)
     end
   end
 
@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
       add_version(project)
       notify_collaborators(project)
       flash[:notice] = "new project created"
-      redirect_to root_path
+      redirect_to user_projects_path(@user)
     else
       flash[:warning] = project.errors.full_messages.to_sentence
       redirect_to :back

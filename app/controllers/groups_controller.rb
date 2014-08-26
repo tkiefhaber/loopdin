@@ -6,7 +6,7 @@ class GroupsController < ApplicationController
       @groups = Group.all
     else
       flash[:warning] = 'YOU SHALL NOT PASS'
-      redirect_to root_path
+      redirect_to user_projects_path(@user)
     end
   end
 
@@ -15,7 +15,7 @@ class GroupsController < ApplicationController
       @group = Group.new
     else
       flash[:warning] = 'YOU SHALL NOT PASS'
-      redirect_to root_path
+      redirect_to user_projects_path(@user)
     end
   end
 
@@ -32,7 +32,7 @@ class GroupsController < ApplicationController
       redirect_to user_projects_path(current_user)
     else
       flash[:warning] = @group.errors.full_messages.to_sentence
-      redirect_to root_path
+      redirect_to user_projects_path(@user)
     end
   end
 
@@ -41,7 +41,7 @@ class GroupsController < ApplicationController
     if @group.admin?(@user)
     else
       flash[:warning] = 'YOU SHALL NOT PASS'
-      redirect_to root_path
+      redirect_to user_projects_path(@user)
     end
   end
 

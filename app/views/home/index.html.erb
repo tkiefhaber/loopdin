@@ -1,0 +1,98 @@
+<body class='contrast-red login contrast-background'>
+  <div class='middle-container'>
+    <div class='middle-row'>
+      <div class='middle-wrapper'>
+        <div class='login-container-header'>
+          <div class='container'>
+            <div class='row'>
+              <div class='col-sm-12'>
+                <div class='text-center'>
+                  <%= image_tag "bigchicken.png", :size => '120x120' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='login-container'>
+          <div class='container'>
+            <div class='row'>
+              <div class='row pricing-tables'>
+                <div class='col-sm-6 col-md-4'>
+                  <div class='pricing-table'>
+                    <div class='header'>Fire it Up</div>
+                    <div class='price blue-background'>
+                      <span><i class='icon-plus-sign-alt'></i></span>
+                    </div>
+                    <ul class='list-unstyled features'>
+                      <li>
+                        <i class='icon-pencil'></i> name your project
+                      </li>
+                      <li>
+                        <i class='icon-group'></i> loop in your people
+                      </li>
+                      <li>
+                        <i class='icon-cloud-upload'></i> upload your first version
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class='col-sm-6 col-md-4'>
+                  <div class='pricing-table'>
+                    <div class='header'>Feedback Loop</div>
+                    <div class='price orange-background'>
+                      <span><i class='icon-repeat'></i></span>
+                    </div>
+                    <ul class='list-unstyled features'>
+                      <li>
+                        <i class='icon-envelope'></i> collaborators get notified
+                      </li>
+                      <li>
+                        <i class='icon-plane'></i> hit you with solid feedback
+                      </li>
+                      <li>
+                        <i class='icon-magic'></i> you get improve your piece
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class='col-sm-6 col-md-4'>
+                  <div class='pricing-table'>
+                    <div class='header'>Approve</div>
+                    <div class='price green-background'>
+                      <span><i class='icon-exclamation-sign'></i></span>
+                    </div>
+                    <ul class='list-unstyled features'>
+                      <li>
+                        <i class='icon-bolt'></i> you've made updates
+                      </li>
+                      <li>
+                        <i class='icon-thumbs-up'></i> they approve your piece
+                      </li>
+                      <li>
+                        <i class='icon-smile'></i> you're done!
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='login-container-footer'>
+          <div class='container'>
+            <div class='row'>
+              <div class='col-sm-12'>
+                <div class='text-center col-sm-6'>
+                  New to Loop'dIn? <%= link_to ' Sign up', new_user_registration_path, :class => 'icon-user' %>
+                </div>
+                <div class='text-center col-sm-6'>
+                  Loop'dIn Member? <%= link_to ' Sign in', new_user_session_path, :class => 'icon-user' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

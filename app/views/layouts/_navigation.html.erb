@@ -1,6 +1,6 @@
 <header>
   <nav class="navbar navbar-default">
-    <%= link_to image_tag("big_chicken_white.png", :height => 25, :width => 25, :alt => 'logo', :title => 'logo'), root_path, :class => 'navbar-brand logo' %>
+    <%= link_to image_tag("big_chicken_white.png", :height => 25, :width => 25, :alt => 'logo', :title => 'logo'), user_projects_path(current_user), :class => 'navbar-brand logo' %>
     <!-- dropdowns -->
     <a class='toggle-nav btn pull-left' href='#'>
       <i class='icon-reorder'></i>

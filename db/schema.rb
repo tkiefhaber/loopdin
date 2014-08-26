@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140816155459) do
+ActiveRecord::Schema.define(version: 20140826015925) do
 
   create_table "collaborations", force: true do |t|
     t.integer "project_id"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20140816155459) do
     t.string   "aasm_state"
     t.string   "slug"
     t.integer  "group_id"
+    t.datetime "approved_at"
   end
 
   add_index "projects", ["group_id"], name: "index_projects_on_group_id"

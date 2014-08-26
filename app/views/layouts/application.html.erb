@@ -16,7 +16,7 @@
     <%= javascript_include_tag "application" %>
   </head>
   <body>
-    <% if user_signed_in? && request.path != '/' && request.path != '/users/edit' %>
+    <% if user_signed_in? && request.path != '/' && request.path != '/users/edit' && !request.path.match(/demo/) %>
       <%= render :partial => 'layouts/navigation' %>
     <% end %>
 

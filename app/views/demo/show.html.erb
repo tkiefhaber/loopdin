@@ -1,0 +1,47 @@
+<head>
+<script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"></script>
+<script>
+  $(document).ready(function() {
+      createStoryJS({
+      type:       'timeline',
+      height:     '600',
+      source:     "/demo/<%= @timeline[:timeline][:headline] %>.json",
+      embed_id:   'my-timeline',
+    });
+  });
+</script>
+</head>
+<body class='contrast-red login contrast-background'>
+  <div class='middle-container'>
+    <div class='middle-row'>
+      <div class='middle-wrapper'>
+        <div class='login-container-header'>
+          <div class='container'>
+            <div class='row'>
+              <div class='col-sm-12'>
+                <div class='text-center'>
+                  <%= image_tag "bigchicken.png", :size => '120x120' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='login-container'>
+          <div class='container'>
+            <div class='row text-centered'>
+              <div class="col-sm-10 col-sm-offset-2" id='my-timeline'></div>
+            </div>
+          </div>
+        </div>
+        <div class='login-container-footer'>
+          <div class='container'>
+            <div class='row'>
+              <div class='col-sm-12'>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

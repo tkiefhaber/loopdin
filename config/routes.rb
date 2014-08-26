@@ -5,6 +5,7 @@ LoopdIn::Application.routes.draw do
   devise_for :users
   resources :groups
   resources :home
+  resources :demo
   resources :users do
     resources :projects do
       resources :versions do

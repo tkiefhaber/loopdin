@@ -25,7 +25,7 @@ class Project < ActiveRecord::Base
     end
 
     event :submit do
-      transitions from: :in_progress, to: :submitted, :on_transition => Proc.new {|obj| obj.notify_submission }
+      transitions from: [:in_progress, :submitted], to: :submitted, :on_transition => Proc.new {|obj| obj.notify_submission }
     end
 
     event :needs_work do

@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def all_projects
-    projects + collabos
+    [projects + collabos].flatten
   end
 
   def belongs_to?(group)

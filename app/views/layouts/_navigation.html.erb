@@ -38,10 +38,10 @@
           <li><a href='#' class='icon-check nav-hideable' id='approved'><span> my approved</span></a></li>
           <li><a href='#' class='icon-suitcase nav-hideable' id='all'><span> all</span></a></li>
         <% else %>
-          <li><a href='/' class='icon-beaker nav-hideable' id='in-progress'><span> mine in progress</span></a></li>
-          <li><a href='/' class='icon-group nav-hideable' id='collabos'><span> collaborations in progress</span></a></li>
-          <li><a href='/' class='icon-check nav-hideable' id='approved'><span> my approved</span></a></li>
-          <li><a href='/' class='icon-suitcase nav-hideable' id='all'><span> all</span></a></li>
+          <li><%= link_to " mine in progress", user_projects_path(current_user), :class => 'icon-beaker nav-hideable', :id => 'in-progress' %></li>
+          <li><%= link_to " collaborations in progress", user_projects_path(current_user), :class => 'icon-group nav-hideable', :id => 'collabos' %></li>
+          <li><%= link_to " my approved", user_projects_path(current_user), :class => 'icon-check nav-hideable', :id => 'approved' %></li>
+          <li><%= link_to " all", user_projects_path(current_user), :class => 'icon-suitcase nav-hideable', :id => 'all' %></li>
         <% end %>
       </ul>
     </div>

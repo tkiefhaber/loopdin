@@ -44,7 +44,9 @@ class ProjectsController < ApplicationController
     elsif params[:needs_work]
       @project.needs_work!
     elsif params[:add_user]
-      @project.collaborations.create(user_id: User.find_by_username(params[:username]).id)
+      user = User.find_by_username(params[:username])
+      @project.collaborations.create(user_id: user.id)
+      notify_collaborators(@project, user)
     elsif params[:remove_user]
       @project.collaborations.where(user_id: User.find_by_username(params[:username]).id).first.destroy
     end
@@ -73,8 +75,14 @@ class ProjectsController < ApplicationController
     project.save!
   end
 
-  def notify_collaborators(project)
-    ProjectMailer.new_collaboration_notification(User.where(id: project.collaborations.map(&:user_id)), project).deliver
+  def notify_collaborators(project, user = nil)
+    users = if user.present?
+      [user]
+    else
+      User.where(id: project.collaborations.map(&:user_id))
+    end
+
+    ProjectMailer.new_collaboration_notification(users, project).deliver
   end
 
   def find_user

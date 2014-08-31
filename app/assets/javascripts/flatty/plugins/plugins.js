@@ -10,13 +10,11 @@
 //= require flatty/plugins/datatables/jquery.dataTables.columnFilter
 //= require flatty/plugins/datatables/dataTables.overrides
 //= require flatty/plugins/common/moment.min
-//= require flatty/plugins/common/wysihtml5.min
 //= require flatty/plugins/common/bootstrap-wysihtml5
 //= require flatty/plugins/bootstrap_colorpicker/bootstrap-colorpicker.min
 //= require flatty/plugins/mention/mention.min
 //= require flatty/plugins/input_mask/bootstrap-inputmask.min
 //= require flatty/plugins/fileinput/bootstrap-fileinput
-//= require flatty/plugins/retina/retina
 //= require flatty/plugins/fileupload/tmpl.min
 //= require flatty/plugins/fileupload/load-image.min
 //= require flatty/plugins/fileupload/canvas-to-blob.min

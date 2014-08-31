@@ -75,13 +75,39 @@
             </div>
           </div>
         </div>
-        <div class="span2">
-          <h4>Project Collaborators</h4>
-          <ul>
-            <% @project.collabos.each do |collaborator| %>
-              <li><%= link_to collaborator.username, user_projects_path(collaborator) %></li>
-            <% end %>
-          </ul>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <div class='box'>
+              <div class='row todo-list collaborator-list'>
+                <div class='col-sm-10'>
+                  <div class='box'>
+                    <div class='box-content box-no-padding'>
+                      <h4>Project Collaborators</h4>
+                      <form class="new-todo" method="put" action="#" accept-charset="UTF-8"><input name="authenticity_token" type="hidden" /><input class='form-control' id='username' name='user[username]' placeholder='add username...' type='text'>
+                        <button class='btn btn-success' type='submit'>
+                          <i class='icon-plus'></i>
+                        </button>
+                      </form>
+                      <ul class='list-unstyled ' >
+                        <% @project.collabos.each do |collaborator| %>
+                          <li class='item collaborator' id="<%= collaborator.id %>">
+                            <label class='pull-left todo'>
+                              <span><%= link_to collaborator.username, user_projects_path(collaborator) %></span>
+                            </label>
+                            <div class='actions pull-right'>
+                              <a class='btn btn-link remove has-tooltip' data-placement='top' href='#' title='Remove collaborator' id="<%= collaborator.id %>-delete" <%= 'disabled' unless can_remove_collaborators?(@project) %>>
+                                <i class='icon-remove'></i>
+                              </a>
+                            </div>
+                          </li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div><!--/row-->
     </div>
@@ -94,6 +120,43 @@
     headers: {
       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
     }
+  });
+
+  $(".todo-list .new-todo").live('submit', function(e) {
+    var li, username;
+    username = $(this).find("#username").val();
+    $(this).find("#username").val("");
+    if (username.length !== 0) {
+      $.ajax({
+        url: "/users/<%= @project.owner.slug %>/projects/<%= @project.slug %>?add_user=true&username=" + username,
+        type: "put",
+        dataType: "json",
+        data: {"_method":"update"}
+      });
+      li = $(this).parents(".todo-list").find("li.collaborator").first().clone();
+      li.find("label.todo span").text(username);
+      li.removeClass('important');
+      $(".collaborator-list ul").first().prepend(li);
+      li.effect("highlight", {}, 500);
+    }
+    return e.preventDefault();
+  });
+
+  $(".todo-list .actions .remove").live("click", function(e) {
+    var username = $(this).parents('li').first().children().first()[0].innerText;
+    $(this).tooltip("hide");
+    $(this).parents("li").fadeOut(500, function() {
+      return $(this).remove();
+    });
+    $.ajax({
+      url: "/users/<%= @project.owner.slug %>/projects/<%= @project.slug %>?remove_user=true&username=" + username,
+      type: "put",
+      dataType: "json",
+      data: {"_method":"update"}
+    });
+    e.stopPropagation();
+    e.preventDefault();
+    return false;
   });
 
   $(".approve").click(function() {

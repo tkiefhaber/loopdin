@@ -42,7 +42,11 @@ class ProjectsController < ApplicationController
     if params[:approved]
       @project.approve!
     elsif params[:needs_work]
-      @proejct.needs_work!
+      @project.needs_work!
+    elsif params[:add_user]
+      @project.collaborations.create(user_id: User.find_by_username(params[:username]).id)
+    elsif params[:remove_user]
+      @project.collaborations.where(user_id: User.find_by_username(params[:username]).id).first.destroy
     end
     render :nothing => true
   end

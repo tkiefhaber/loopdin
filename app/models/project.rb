@@ -37,6 +37,10 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def owner
+    User.find(user_id)
+  end
+
   def notify_submission
     ProjectMailer.version_submitted_notification(persons_to_notify, self).deliver
   end

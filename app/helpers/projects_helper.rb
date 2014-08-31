@@ -10,4 +10,8 @@ module ProjectsHelper
   def can_approve?(project)
     project.collabos.map(&:id).include?(current_user.id)
   end
+
+  def can_remove_collaborators?(project)
+    project.user_id == current_user.id
+  end
 end

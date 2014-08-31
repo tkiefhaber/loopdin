@@ -45,7 +45,7 @@
       return $(this).remove();
     });
     $.ajax({
-      url: "/users/<%= @project.user.id %>/projects/<%= @project.id %>/versions/<%= version.id %>/comments/" + parseInt(this.id),
+      url: "/users/<%= @project.user.slug %>/projects/<%= @project.slug %>/versions/<%= version.id %>/comments/" + parseInt(this.id),
       type: "post",
       dataType: "json",
       data: {"_method":"delete"}
@@ -58,7 +58,7 @@
   $(".todo-list .actions .important").live("click", function(e) {
     $(this).parents("li").toggleClass("important");
     $.ajax({
-      url: "/users/<%= @project.user.id %>/projects/<%= @project.id %>/versions/<%= version.id %>/comments/" + parseInt(this.id) + "?important=" + $(this).parents('li').hasClass('important'),
+      url: "/users/<%= @project.user.slug %>/projects/<%= @project.slug %>/versions/<%= version.id %>/comments/" + parseInt(this.id) + "?important=" + $(this).parents('li').hasClass('important'),
       type: "put",
       dataType: "json"
     });
@@ -71,7 +71,7 @@
     var checkbox;
     checkbox = $(this).find("input[type='checkbox']");
     $.ajax({
-      url: "/users/<%= @project.user.id %>/projects/<%= @project.id %>/versions/<%= version.id %>/comments/" + parseInt(checkbox.attr('id')) + "?addressed=" + checkbox.is(":checked"),
+      url: "/users/<%= @project.user.slug %>/projects/<%= @project.slug %>/versions/<%= version.id %>/comments/" + parseInt(checkbox.attr('id')) + "?addressed=" + checkbox.is(":checked"),
       type: "put",
       dataType: "json"
     });

@@ -14,7 +14,12 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project = Project.new(user: @user)
+    if @user.groups.count == 0
+      flash[:warning] = "sorry, seems like you don't belong to any groups yet, please contact your administrator or email tom@loopd.in"
+      redirect_to user_projects_path(@user)
+    else
+      @project = Project.new(user: @user)
+    end
   end
 
   def create

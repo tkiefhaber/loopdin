@@ -29,7 +29,7 @@ class Project < ActiveRecord::Base
     end
 
     event :needs_work do
-      transitions from: [:submitted, :approved], to: :in_progress, :on_transition => Proc.new {|obj| obj.notify_needs_work }
+      transitions from: [:in_progress, :submitted, :approved], to: :in_progress, :on_transition => Proc.new {|obj| obj.notify_needs_work }
     end
 
     event :approve do

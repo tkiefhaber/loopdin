@@ -82,7 +82,7 @@ class ProjectsController < ApplicationController
       User.where(id: project.collaborations.map(&:user_id))
     end
 
-    ProjectMailer.new_collaboration_notification(users, project).deliver
+    ProjectMailer.new_collaboration_notification(users, project).deliver if users.present?
   end
 
   def find_user

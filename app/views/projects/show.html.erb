@@ -30,7 +30,11 @@
                   <h2><%= version.description %>: <span><%= version.approved ? 'Approved' : 'In Progress' %></span></h2>
                   <div class='row col-sm-12'>
                     <div class='col-sm-10'>
-                      <%= video_tag(version.file.url, id: "video-#{version.id}", controls: true, autobuffer: true, width: '100%' ) if version.file.present? %>
+                      <% if ['video/mp4', 'video/quicktime'].include?(version.file_content_type) %>
+                        <%= video_tag(version.file.url, id: "video-#{version.id}", controls: true, autobuffer: true, width: '100%' ) if version.file.present? %>
+                      <% else %>
+                        <%= image_tag(version.file.url, id: "image-#{version.id}", width: '100%' ) if version.file.present? %>
+                      <% end %>
                     </div>
                     <div class='col-sm-2' id="footer-<%= version.id %>"></div>
                   </div>

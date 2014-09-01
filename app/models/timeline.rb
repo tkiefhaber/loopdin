@@ -28,12 +28,20 @@ class Timeline
       :headline  => work.title,
       :text      => "<p>#{work.description}</p>",
       :asset     => {
-        :media   => "<video autobuffer='autobuffer' controls='controls' src=#{video_source_url(work)}></video>",
+        :media   => media_html(work),
       }
     }
   end
 
-  def video_source_url(work)
+  def media_html
+    if work.versions.where(approved:true).first.file_content_type == 'image/png'
+      "<image  src=#{source_url(work)}></image>"
+    else
+      "<video autobuffer='autobuffer' controls='controls' src=#{source_url(work)}></video>"
+    end
+  end
+
+  def source_url(work)
     work.versions.where(approved: true).first.file.url
   end
 

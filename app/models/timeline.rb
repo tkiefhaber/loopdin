@@ -33,7 +33,7 @@ class Timeline
     }
   end
 
-  def media_html
+  def media_html(work)
     if work.versions.where(approved:true).first.file_content_type == 'image/png'
       "<image  src=#{source_url(work)}></image>"
     else

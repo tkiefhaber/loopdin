@@ -111,10 +111,10 @@
       return $(this).remove();
     });
     $.ajax({
-      url: "/groups/<%= @group.slug %>?&username=" + username,
-      type: "delete",
+      url: "/groups/<%= @group.slug %>?remove_user=true&username=" + username,
+      type: "put",
       dataType: "json",
-      data: {"_method":"destroy"}
+      data: {"_method":"update"}
     });
     e.stopPropagation();
     e.preventDefault();

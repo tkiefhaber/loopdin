@@ -53,6 +53,11 @@ class GroupsController < ApplicationController
         GroupUser.create(group_id: @group.id, user_id: user.id)
       end
     end
+    if params[:remove_user].present?
+      if GroupUser.where(group_id: @group.id, user_id: user.id).present?
+        GroupUser.where(group_id: @group.id, user_id: user.id).first.destroy
+      end
+    end
     if params[:admin].present?
       @group.group_users.where(user_id: user.id).first.update_attributes(admin: params[:admin])
     end

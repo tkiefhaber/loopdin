@@ -35,7 +35,7 @@
                     <div class='col-sm-2' id="footer-<%= version.id %>"></div>
                   </div>
                   <div class='row col-sm-12'>
-                    <% if can_comment_on_project?(@project) %>
+                    <% if can_comment_on_project?(@project) && @project.aasm_state != 'approved' %>
                       <div class='col-sm-5'>
                         <%= link_to " Add Comment", new_user_project_version_comment_path(@project.user, @project, version), :class => 'btn btn-primary btn-large icon-plus-sign' %>
                       </div>

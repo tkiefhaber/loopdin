@@ -26,7 +26,6 @@ class VersionsController < ApplicationController
       @version.update_attributes(hash)
       @version.project.approve!
     elsif params[:needs_work].present?
-      @version.update_attributes(hash)
       @version.project.needs_work!
     end
     render :nothing => true

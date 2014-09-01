@@ -37,7 +37,7 @@ class GroupsController < ApplicationController
   end
 
   def edit
-    @group = Group.find_by_title(params[:id])
+    @group = Group.find_by_slug(params[:id])
     if @group.admin?(@user)
     else
       flash[:warning] = 'YOU SHALL NOT PASS'

@@ -35,7 +35,7 @@ class Timeline
 
   def media_html(work)
     if work.versions.where(approved:true).first.file_content_type == 'image/png'
-      "<image  src=#{source_url(work)}></image>"
+      source_url(work)
     else
       "<video autobuffer='autobuffer' controls='controls' src=#{source_url(work)}></video>"
     end

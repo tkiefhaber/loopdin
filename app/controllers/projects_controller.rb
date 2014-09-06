@@ -40,7 +40,7 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find_by_slug(params[:id])
     if params[:approved]
-      @project.approve!(current_user)
+      @project.approve(current_user)
     elsif params[:needs_work]
       @project.needs_work!(current_user)
     elsif params[:add_user]

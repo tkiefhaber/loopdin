@@ -39,7 +39,7 @@ class Project < ActiveRecord::Base
 
     def approve(current_user)
       Proc.new {|obj| obj.notify_approved(current_user) ; obj.update_attributes(approved_at: Time.now) }
-      old_approve!
+      old_approve
     end
   end
 

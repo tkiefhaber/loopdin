@@ -29,11 +29,11 @@ class Project < ActiveRecord::Base
     end
 
     event :needs_work do
-      transitions from: [:in_progress, :submitted, :approved], to: :in_progress, :on_transition => Proc.new {|obj| obj.notify_needs_work }
+      transitions from: [:in_progress, :submitted, :approved], to: :in_progress, :on_transition => Proc.new {|obj| obj.notify_needs_work(current_user) }
     end
 
     event :approve do
-      transitions from: [:in_progress, :submitted, :approved], to: :approved, :on_transition => Proc.new {|obj| obj.notify_approved ; obj.update_attributes(approved_at: Time.now) }
+      transitions from: [:in_progress, :submitted, :approved], to: :approved, :on_transition => Proc.new {|obj| obj.notify_approved(current_user) ; obj.update_attributes(approved_at: Time.now) }
     end
   end
 
@@ -45,11 +45,11 @@ class Project < ActiveRecord::Base
     ProjectMailer.version_submitted_notification(persons_to_notify, self).deliver
   end
 
-  def notify_needs_work
+  def notify_needs_work(current_user)
     ProjectMailer.version_needs_work_notification(current_user, persons_to_notify, self).deliver
   end
 
-  def notify_approved
+  def notify_approved(current_user)
     ProjectMailer.version_approved_notification(current_user, persons_to_notify, self).deliver
   end
 

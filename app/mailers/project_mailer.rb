@@ -27,7 +27,7 @@ class ProjectMailer < ActionMailer::Base
     attachments.inline['loopdin-logo.png'] = File.read("#{Rails.root}/app/assets/images/bigchicken.png")
     mail(
       to: @collaborators.map(&:email),
-      subject: "couple things for you about #{@project.title}"
+      subject: "#{current_user.username} has a couple things for you about #{@project.title}"
     )
   end
 
@@ -37,7 +37,7 @@ class ProjectMailer < ActionMailer::Base
     attachments.inline['loopdin-logo.png'] = File.read("#{Rails.root}/app/assets/images/bigchicken.png")
     mail(
       to: @collaborators.map(&:email),
-      subject: "#{@project.title} has been approved!"
+      subject: "#{current_user.username} has approved your #{@project.title}!"
     )
   end
 end

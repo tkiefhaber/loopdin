@@ -33,7 +33,7 @@ class Project < ActiveRecord::Base
     end
 
     event :approve do
-      transitions from: [:in_progress, :submitted], to: :approved, :on_transition => Proc.new {|obj| obj.notify_approved ; obj.update_attributes(approved_at: Time.now) }
+      transitions from: [:in_progress, :submitted, :approved], to: :approved, :on_transition => Proc.new {|obj| obj.notify_approved ; obj.update_attributes(approved_at: Time.now) }
     end
   end
 

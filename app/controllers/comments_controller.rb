@@ -39,9 +39,9 @@ class CommentsController < ApplicationController
         hash = {}
       end
       @comment.update_attributes(hash)
-      render :nothing => true
     else
     end
+    render :nothing => true
   end
 
   def destroy

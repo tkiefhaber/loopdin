@@ -21,7 +21,7 @@ class ProjectMailer < ActionMailer::Base
     )
   end
 
-  def version_needs_work_notification(collaborators, project)
+  def version_needs_work_notification(current_user, collaborators, project)
     @collaborators = collaborators
     @project = project
     attachments.inline['loopdin-logo.png'] = File.read("#{Rails.root}/app/assets/images/bigchicken.png")
@@ -31,7 +31,7 @@ class ProjectMailer < ActionMailer::Base
     )
   end
 
-  def version_approved_notification(collaborators, project)
+  def version_approved_notification(current_user, collaborators, project)
     @collaborators = collaborators
     @project = project
     attachments.inline['loopdin-logo.png'] = File.read("#{Rails.root}/app/assets/images/bigchicken.png")

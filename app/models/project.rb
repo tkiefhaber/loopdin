@@ -46,11 +46,11 @@ class Project < ActiveRecord::Base
   end
 
   def notify_needs_work
-    ProjectMailer.version_needs_work_notification(persons_to_notify, self).deliver
+    ProjectMailer.version_needs_work_notification(current_user, persons_to_notify, self).deliver
   end
 
   def notify_approved
-    ProjectMailer.version_approved_notification(persons_to_notify, self).deliver
+    ProjectMailer.version_approved_notification(current_user, persons_to_notify, self).deliver
   end
 
   def persons_to_notify

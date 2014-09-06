@@ -30,17 +30,14 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
-    if @project.user.id == current_user.id
-      if params[:important].present?
-        hash = {important: params[:important]}
-      elsif params[:addressed].present?
-        hash = {addressed: params[:addressed]}
-      else
-        hash = {}
-      end
-      @comment.update_attributes(hash)
+    if params[:important].present?
+      hash = {important: params[:important]}
+    elsif params[:addressed].present?
+      hash = {addressed: params[:addressed]}
     else
+      hash = {}
     end
+    @comment.update_attributes(hash)
     render :nothing => true
   end
 

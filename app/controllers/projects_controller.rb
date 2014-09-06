@@ -40,9 +40,9 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find_by_slug(params[:id])
     if params[:approved]
-      @project.approve(current_user)
+      @project.approve!
     elsif params[:needs_work]
-      @project.needs_work!(current_user)
+      @project.needs_work!
     elsif params[:add_user]
       user = User.find_by_username(params[:username])
       @project.collaborations.create(user_id: user.id)

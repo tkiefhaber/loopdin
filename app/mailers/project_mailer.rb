@@ -21,23 +21,23 @@ class ProjectMailer < ActionMailer::Base
     )
   end
 
-  def version_needs_work_notification(current_user, collaborators, project)
+  def version_needs_work_notification(collaborators, project)
     @collaborators = collaborators
     @project = project
     attachments.inline['loopdin-logo.png'] = File.read("#{Rails.root}/app/assets/images/bigchicken.png")
     mail(
       to: @collaborators.map(&:email),
-      subject: "#{current_user.username} has a couple things for you about #{@project.title}"
+      subject: "couple things for you about #{@project.title}"
     )
   end
 
-  def version_approved_notification(current_user, collaborators, project)
+  def version_approved_notification(collaborators, project)
     @collaborators = collaborators
     @project = project
     attachments.inline['loopdin-logo.png'] = File.read("#{Rails.root}/app/assets/images/bigchicken.png")
     mail(
       to: @collaborators.map(&:email),
-      subject: "#{current_user.username} has approved your #{@project.title}!"
+      subject: "#{@project.title} was approved!"
     )
   end
 end
